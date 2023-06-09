@@ -1,0 +1,25 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Registro{% endblock %}
+{% block content %}
+              <style>.errorlist{color:red;}label{display:none}</style>
+                <div class="container px-5">
+                    <!-- Contact form-->
+                    <div class="bg-light rounded-4 py-5 px-4 px-md-5">
+                        <div class="text-center mb-5">
+                            <div class="feature bg-primary bg-gradient-primary-to-secondary text-white rounded-3 mb-3"><i class="bi bi-box-arrow-in-right"></i></div>
+                            <h1 class="fw-bolder">Registrarse</h1>
+                            <p class="lead fw-normal text-muted mb-0">¡Trabajemos juntos!</p>
+                        </div>
+                        <div class="row gx-5 justify-content-center">
+                            <div class="col-lg-8 col-xl-6">
+                              <form action="" method="post">{% csrf_token %}
+                                {{form.as_p}}
+                                <p><input type="submit" class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" value="Confirmar"></p>
+                              </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+{% endblock %}

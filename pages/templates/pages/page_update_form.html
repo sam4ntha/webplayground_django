@@ -9,8 +9,8 @@
       <div class="col-md-9 mx-auto">
         <div>
         {% if 'ok' in request.GET %}
-        <p style="color:#1826c2;">
-        ¡La página se ha editado correctamente!
+        <p style="color:#1826c2;"><span class="text-gradient d-inline">
+        ¡La página se ha editado correctamente!</span>
         <a href="{% url 'pages:page' page.id page.title|slugify %}">Haz clic aquí para ver el resultado.</a>
         </p>
         {% endif %}

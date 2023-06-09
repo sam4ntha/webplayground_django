@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}Iniciar sesión{% endblock %}
 {% block content %}
-              <style>.errorlist{color:red;}</style>
+              <style>.errorlist{color:red;}label{display:none}</style>
                 <div class="container px-5">
                     <!-- Contact form-->
                     <div class="bg-light rounded-4 py-5 px-4 px-md-5">
@@ -13,9 +13,13 @@
                         </div>
                         <div class="row gx-5 justify-content-center">
                             <div class="col-lg-8 col-xl-6">
+                            {% if 'register' in request.GET %} <!--Si se detecta que hay este parametro(request.GET) en el diccionario de parametros GET, mostrara un mensaje-->
+                              <p style="color:#1826c2;" class="text-center"><span class="text-gradient d-inline">¡El usuario se ha registrado correctamente!</span> <br>
+                              Ya podemos trabajar juntos</p>
+                            {% endif %}
                               <form action="" method="post">{% csrf_token %}
                                 {% if form.non_field_errors %}
-                                  <p style="color:red">Usuario o contraseña incorrectos, prueba de nuevo.</p>
+                                  <p style="{color:red}">Usuario o contraseña incorrectos, prueba de nuevo.</p>
                                 {% endif %}
                                 <p>
                                   <input type="text" name="username" autofocus maxlength="254" required
