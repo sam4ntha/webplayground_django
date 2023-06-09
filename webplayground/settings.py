@@ -130,7 +130,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #Auth redirect
-LOGIN_REDIRECT_URL = 'pages:pages'
+# LOGIN_REDIRECT_URL = 'pages:pages'
 LOGOUT_REDIRECT_URL = 'home'
 
 #Emails
@@ -145,3 +145,7 @@ else:
     
     #EMAIL_BACKEND : Envian correos normales, pero si se sobreescriben se puede hacer que se envien en forma de ficheros en modo de pruebas o tambien que salgan por la terminal
     #EMAIL_FILE_PATH : Donde se quiere guardar los emails 
+
+#Media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -1,6 +1,9 @@
 from .forms import UserCreationFormWithEmail
 #from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView
+from django.views.generic.base import TemplateView
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django import forms
 
@@ -27,3 +30,10 @@ class SignUpView(CreateView):
 
     """Se esta extendiendo el formulario UserCreationForm, este tiene sus propias validaciones, no se puede sobreescribir en un campo widget, ya que se borran sus validaciones y configuraciones que ya tiene.
     Se tendria que modificar las validaciones en tiempo real(parte superior get_form)."""
+
+
+@method_decorator(login_required, name='dispatch')
+class ProfileUpdate(TemplateView):
+    template_name = 'registration/profile_form.html'
+
+    """Solo disponible para un usuario autenticado y pueda actualizar su perfil"""    
