@@ -16,7 +16,7 @@
                 <img src="{{request.user.profile.avatar.url}}" class="img-fluid img-thumbnail">
                 <p class="mt-1">¿Borrar? <input type="checkbox" id="avatar-clear" name="avatar-clear" /></p>
                 {% else %}
-                <img src="{% static 'registration/img/avatar1.jpg' %}" class="img-fluid img-thumbnail">
+                <img src="{% static 'registration/img/usuario.jpg' %}" class="img-fluid img-thumbnail">
               {% endif %}
             </div>
             <!-- Formulario -->
@@ -26,7 +26,10 @@
               {{ form.bio }}
               {{ form.link }}
               <input type="email" value="{{request.user.email}}" class="form-control mt-3" readonly>
-                <p class="text-muted">Si deseas editar tu correo electrónico, haz click <a class="navbar-brand" href="{% url 'profile_email' %}"><span class="text-gradient d-inline">aquí.</a></span></p>
+                <p class="text-muted">
+                Si deseas editar tu correo electrónico, haz click <a class="navbar-brand" href="{% url 'profile_email' %}"><span class="text-gradient d-inline">aquí</a></span>.<br>
+                Si deseas cambiar tu contraseña, haz click <a class="navbar-brand" href="{% url 'password_change' %}"><span class="text-gradient d-inline">aquí.</a></span>
+                </p>
               <input type="submit" class="btn btn-primary btn-block mt-3 btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" value="Actualizar">
             </div>
           </div>
