@@ -25,6 +25,8 @@
               <input type="file" name="avatar" class="col-lg-8" id="id_avatar">
               {{ form.bio }}
               {{ form.link }}
+              <input type="email" value="{{request.user.email}}" class="form-control mt-3" readonly>
+                <p class="text-muted">Si deseas editar tu correo electrónico, haz click <a class="navbar-brand" href="{% url 'profile_email' %}"><span class="text-gradient d-inline">aquí.</a></span></p>
               <input type="submit" class="btn btn-primary btn-block mt-3 btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" value="Actualizar">
             </div>
           </div>

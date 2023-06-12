@@ -30,3 +30,18 @@ class ProfileForm(forms.ModelForm):
             'bio': forms.Textarea(attrs={'class':'form-control mt-3', 'rows': 4, 'placeholder':'Biografía'}),
             'link': forms.URLInput(attrs={'class':'form-control mt-3', 'placeholder':'Enlace'})
         }
+
+class EmailForm(forms.ModelForm):
+    email = forms.EmailField(required=True, help_text="Requerido, 254 caracteres como máximo y tambien debe ser válido")
+
+    class Meta:
+        model = User
+        fields = ['email']
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email") 
+        if 'email' in self.changed_data: #El correo debe haber cambiado
+            if User.objects.filter(email=email).exists(): #El correo no debe existir en la base de datos
+                raise forms.ValidationError("El correo ya ha sido registrado, prueba con otro.") 
+        return email
+    

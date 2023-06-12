@@ -1,4 +1,4 @@
-from .forms import UserCreationFormWithEmail, ProfileForm
+from .forms import UserCreationFormWithEmail, ProfileForm, EmailForm
 from django.views.generic import CreateView
 from django.views.generic.edit import UpdateView
 from django.utils.decorators import method_decorator
@@ -44,4 +44,21 @@ class ProfileUpdate(UpdateView):
         profile, created = Profile.objects.get_or_create(user=self.request.user)
         return profile
     #get_or_create busca a partir del filtro que se le proporciona, si no lo encuentra lo crea.
-    #No se puede recuperarlo ni devolverlo directamente, pq al devolverlo directamente regresa una tupla formada por el propio objeto que se esta recuperando o editando(Profile) 
+    #No se puede recuperarlo ni devolverlo directamente, pq al devolverlo directamente regresa una tupla formada por el propio objeto que se esta recuperando o editando(Profile)
+
+@method_decorator(login_required, name='dispatch')
+class EmailUpdate(UpdateView):
+    form_class = EmailForm
+    template_name = 'registration/profile_email_form.html'
+    success_url = reverse_lazy('profile')    
+
+    def get_object(self):
+        #Recuperar el objeto que se va a editar
+        return self.request.user
+    
+    def get_form(self, form_class=None):
+        #Sobreescirbir en tiempo de ejecucionn pq User(modeloUsuario) ya tiene sus propios validadores y sus propios widgets
+        form = super(EmailUpdate, self).get_form()
+        #Modificar en tiempo real
+        form.fields['email'].widget = forms.EmailInput(attrs={'class':'form-control mb-2', 'placeholder': 'Correo electrónico'})
+        return form
