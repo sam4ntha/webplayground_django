@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import Profile
 
 class UserCreationFormWithEmail(UserCreationForm):
     email = forms.EmailField(required=True, help_text="Requerido, 254 caracteres como máximo y tambien debe ser válido")
@@ -19,3 +20,13 @@ class UserCreationFormWithEmail(UserCreationForm):
 
          #Se ha definido un metodo para validar el email ingresado para registrarse, se recupera el email que se ha enviado en el formulario, cmprueba si existe algun usuario con el email que se ha recibido. Si existe, significa que se ha registrado y se regresa un error de validacion devolviendo un mensaje.
          #En caso de que no este en la base de datos, devuelve el email dando a entender que ha ido validado 
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['avatar', 'bio', 'link']
+        widgets = {
+            'avatar': forms.ClearableFileInput(attrs={'class':'form-control-file mt-3'}),
+            'bio': forms.Textarea(attrs={'class':'form-control mt-3', 'rows': 4, 'placeholder':'Biografía'}),
+            'link': forms.URLInput(attrs={'class':'form-control mt-3', 'placeholder':'Enlace'})
+        }

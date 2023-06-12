@@ -1,11 +1,11 @@
-from .forms import UserCreationFormWithEmail
-#from django.contrib.auth.forms import UserCreationForm
+from .forms import UserCreationFormWithEmail, ProfileForm
 from django.views.generic import CreateView
-from django.views.generic.base import TemplateView
+from django.views.generic.edit import UpdateView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django import forms
+from .models import Profile
 
 # Create your views here.
 class SignUpView(CreateView):
@@ -33,7 +33,15 @@ class SignUpView(CreateView):
 
 
 @method_decorator(login_required, name='dispatch')
-class ProfileUpdate(TemplateView):
+class ProfileUpdate(UpdateView):
+    form_class = ProfileForm
     template_name = 'registration/profile_form.html'
-
+    success_url = reverse_lazy('profile')
     """Solo disponible para un usuario autenticado y pueda actualizar su perfil"""    
+
+    def get_object(self):
+        #Recuperar el objeto que se va a editar
+        profile, created = Profile.objects.get_or_create(user=self.request.user)
+        return profile
+    #get_or_create busca a partir del filtro que se le proporciona, si no lo encuentra lo crea.
+    #No se puede recuperarlo ni devolverlo directamente, pq al devolverlo directamente regresa una tupla formada por el propio objeto que se esta recuperando o editando(Profile) 
