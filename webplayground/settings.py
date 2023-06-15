@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     #Conectando apps del proyecto
     'ckeditor',
     'core',
+    'messenger',
     'pages.apps.PagesConfig',
+    'profiles'
 ]
 
 MIDDLEWARE = [
