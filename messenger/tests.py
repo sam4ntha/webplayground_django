@@ -50,3 +50,19 @@ class ThreadTestCase(TestCase):
         self.thread.messages.add(message1, message2, message3)
         self.assertEqual(len(self.thread.messages.all()), 2)
     #Comprobar si un usuario que no forma parte del hilo puede agregar algun mensaje
+
+    def test_find_thread_with_custom_manager(self):
+        #Buscara un hilo con el custom manager
+        self.thread.users.add(self.user1, self.user2)
+        thread = Thread.objects.find(self.user1, self.user2)
+        self.assertEqual(self.thread, thread)
+
+    def test_find_or_create_thread_with_custom_manager(self):
+        #Buscara o crear
+        self.thread.users.add(self.user1, self.user2)
+        thread = Thread.objects.find_or_create(self.user1, self.user2)
+        self.assertEqual(self.thread, thread)
+        thread = Thread.objects.find_or_create(self.user1, self.user3)
+        self.assertIsNotNone(thread) #Hilo que se ha recuperado, si lo ha creado debe de ser None
+
+    

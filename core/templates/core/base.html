@@ -46,6 +46,10 @@
                             </li>
                         {% else %}
                         <li class="nav-item">
+                                <a class="nav-link" href="{% url 'messenger:list' %}">Mensajes</a>
+                                <!--{% if request.user.is_staff %}Admin{% else %}Acceder{% endif %}-->
+                        </li>
+                        <li class="nav-item">
                                 <a class="nav-link" href="{% url 'profile' %}">Perfil</a>
                                 <!--{% if request.user.is_staff %}Admin{% else %}Acceder{% endif %}-->
                         </li>
@@ -69,13 +73,6 @@
                     <div class="col-auto"><div class="small m-0">Copyright &copy; Samantha 2023
                     </div>
                 </div>
-                    <!--<div class="col-auto">
-                        <a class="small" href="https://github.com/"><i class="fa fa-github" aria-hidden="true"></i></a>
-                        <span class="mx-1">&middot;</span>
-                        <a class="small" href="https://www.facebook.com/"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                        <span class="mx-1">&middot;</span>
-                        <a class="small" href="https://www.instagram.com/"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                    </div>-->
                 </div>
             </div>
         </footer>
