@@ -59,15 +59,28 @@
               {% endfor %}
             </div>
             <!-- Aquí crearemos el formulario -->
-             <div class="d-grid"><button id="testBtn" class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder">Peticion asincrona de prueba</button></div>
+            <textarea id="content" class="form-control mb-2" rows="2" placeholder="Escribe tu mensaje"></textarea>
+             <div class="d-grid"><button id="send" class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" disabled>Peticion asincrona de prueba</button></div>
              <script>
-              var testBtn = document.getElementById("testBtn");
-              testBtn.addEventListener("click", function(){
-                var content = "Esto es una prueba"
+              var send = document.getElementById("send");
+              send.addEventListener("click", function(){
+                var content = encodeURIComponent(document.getElementById("content").value);
+                if (content.length > 0){
                 const url = "{% url 'messenger:add' thread.pk %}" + "?content="+content;
-                fetch(url).then(response => response.json()).then(function(data){
+                fetch(url, {'credentials':'include'}).then(response => response.json()).then(function(data){
                   alert(data.created);
                 })
+                }
+              })
+
+              //Evento que activa o desactiva el boton dependiendo de si hay o no mensaje
+              var content = document.getElementById("content");
+              content.addEventListener("keyup", function(){
+                if (!this.checkValidity() || !this.value){
+                  send.disabled = true;
+                } else {
+                  send.disabled = false;
+                }
               })
              </script>
 

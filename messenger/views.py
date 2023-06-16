@@ -1,10 +1,10 @@
 from typing import Any, Optional
 from django.db import models
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic import TemplateView
-from .models import Thread
+from .models import Thread, Message
 from django.http import Http404, JsonResponse
 
 from django.contrib.auth.decorators import login_required
@@ -36,6 +36,15 @@ class ThreadDetail(DetailView): #Unica instancia con todos los mensajes del thre
         return obj #Mostrar desde el template todos los mensajes que forman parte de el
     
 def add_message(request, pk):
-    print(request.GET)
     json_response = {'created':False} #Cuando se agregue un mensaje, se devolvera una respuesta json_response
+    if request.user.is_authenticated:
+        content = request.GET.get('content', None) #Recupera el contenido del diccionario de parameros GET, y si no existe None
+        if content:
+            thread = get_object_or_404(Thread, pk=pk)
+            message = Message.objects.create(user=request.user, content=content)
+            thread.messages.add(message)
+            json_response['created'] = True
+    else:
+        raise Http404("El usuario no esta identificado")
+
     return JsonResponse(json_response)
