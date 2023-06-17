@@ -31,9 +31,13 @@ class ThreadManager(models.Manager): # -> Creacion de nuestro propio objects Man
 class Thread(models.Model): #Hilo de conversación
     users = models.ManyToManyField(User, related_name='threads')
     messages = models.ManyToManyField(Message)
+    updated = models.DateTimeField(auto_now=True)
     #Punto de encuentro que almacena los usuarios y los mensajes que escriben estos
 
     objects = ThreadManager()
+
+    class Meta:
+        ordering = ['-updated']
 
 
 def messages_changed(sender, **kwargs):
@@ -56,5 +60,8 @@ def messages_changed(sender, **kwargs):
 
     #Buscar los mensajes de false_pk_set sí están en pk_set y los borramos de pk_set
     pk_set.difference_update(false_pk_set)#Elimina el 3 que esta en false_pk_set y quedan los mensajes 1 y 2 de los 2 usuarios de la instancia
+
+    #Forzar actualizacion haciendo un save
+    instance.save()
 
 m2m_changed.connect(messages_changed, sender=Thread.messages.through) #Conectando señal con cualquier cambio que suceda en ManyToMany Messages

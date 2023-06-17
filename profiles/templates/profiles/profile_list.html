@@ -24,12 +24,14 @@
                                                 {% endif %}
                                             </div>
                                         </div>
-                                        <div class="col-lg-8"><div>
-                                        <p class="profile-data">
+                                        <div class="col-lg-8">
+                                        <div>
+                                          <p class="profile-data">
                                             <b><span class="fw-bolder text-primary">{{profile.user|truncatechars:"16"}}</span></b><br>
                                             <a href="{% url 'profiles:detail' profile.user %}">Ver perfil</a>
-                                        </p>
-                                        </div></div>
+                                          </p>
+                                          </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

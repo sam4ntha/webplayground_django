@@ -15,6 +15,9 @@
               {% else %}
                 <img src="{% static 'registration/img/usuario.jpg' %}" class="img-fluid img-thumbnail">
               {% endif %}
+              {% if request.user != profile.user %}
+                <a href="{% url 'messenger:start' profile.user.username %}"  class="btn btn-primary btn-sm px-5 py-3 me-sm-3 fs-6 fw-bolder mt-4">Enviar mensaje</a>
+              {% endif %}
             </div>
             <!-- Campos -->
             <div class="col-md-10">
@@ -30,6 +33,7 @@
 </main>
 
             <!-- Call to action section-->
+            {% if not request.user.is_authenticated %}
             <section class="py-5 bg-gradient-primary-to-secondary text-white">
                 <div class="container px-5 my-5">
                     <div class="text-center">
@@ -39,6 +43,7 @@
                     </div>
                 </div>
             </section>
+            {% endif %}
 
 
     {% endblock %}

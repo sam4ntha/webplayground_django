@@ -75,6 +75,10 @@
                     message.innerHTML = '<small><i>Hace unos segundos</i></small><br>'+decodeURIComponent(content);
                     document.getElementById("thread").appendChild(message);
                     ScrollBottomInThread();
+                    //Si es el primer mensaje del hilo, actualizaremos para que aparezca a la izquierda
+                    if (data.first){
+                      window.location.href = "{% url 'messenger:detail' thread.pk %}"
+                    }
                 })
                 }
               })
