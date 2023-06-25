@@ -47,3 +47,9 @@ urlpatterns = [
 if settings.DEBUG:
     from django.conf.urls.static import static
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+#Custom titles for admin
+admin.site.site_header = "Un estilo de vida" #Titulo
+admin.site.index_title = "Panel de administrador" #Subtitulo/Titulo del indice
+admin.site.site_title = "Un estilo de vida" #Titulo de pagina
